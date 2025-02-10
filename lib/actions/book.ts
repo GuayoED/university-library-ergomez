@@ -8,6 +8,9 @@ import dayjs from "dayjs";
 export const borrowBook = async (params: BorrowBookParams) => {
     const { bookId, userId } = params;
 
+    console.log(bookId + "bookId");
+    console.log(userId + "userId");
+
     try {
         const book = await db
           .select({availableCopies: books.availableCopies})
@@ -39,13 +42,13 @@ export const borrowBook = async (params: BorrowBookParams) => {
         return {
             success: true,
             message: "The book has been borrowed successfully.",
-            data: JSON.parse(JSON.stringify(record)),
+            data: record,
         };
     } catch (error) {
-        console.error(error);
         return {
             success: false, 
-            message: "An error occurred while borrowing the book."
+            message: "An error occurred while borrowing the book.",
+            message_error: error
         };
     }
 };
